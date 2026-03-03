@@ -6,8 +6,8 @@ import { Toaster } from 'react-hot-toast'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-    title: 'ChanduFit Global — Track Your Discipline',
-    description: 'Personal AI-based Diet & Workout Tracking Platform',
+    title: 'FitTracker — Your Personal Fitness Tracker',
+    description: 'AI-powered diet, workout, and discipline tracking platform',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -18,9 +18,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     position="top-right"
                     toastOptions={{
                         style: {
-                            background: '#1A1A1A',
-                            color: '#F0F0F0',
-                            border: '1px solid #2A2A2A',
+                            background: '#fff',
+                            color: '#1e293b',
+                            border: '1px solid #e2e8f0',
+                            boxShadow: '0 4px 20px rgba(37,99,235,0.08)',
+                            fontFamily: 'Inter, sans-serif',
                         },
                     }}
                 />

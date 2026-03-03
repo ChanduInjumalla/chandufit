@@ -24,37 +24,37 @@ export default function Navbar() {
     return (
         <nav style={{
             position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
-            background: 'rgba(13,13,13,0.97)', backdropFilter: 'blur(12px)',
-            borderBottom: '1px solid #2A2A2A', display: 'flex',
+            background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(16px)',
+            borderBottom: '1px solid #e2e8f0', display: 'flex',
             alignItems: 'center', justifyContent: 'space-between',
             padding: '0 1.5rem', height: 60,
+            boxShadow: '0 1px 8px rgba(37,99,235,0.04)',
         }}>
-            <Link href="/dashboard" style={{ textDecoration: 'none' }}>
-                <span style={{ fontSize: '1.2rem', fontWeight: 900, background: 'linear-gradient(135deg, #FF6B35, #E63946)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                    ChanduFit
-                </span>
+            <Link href="/dashboard" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 10 }}>
+                <div style={{ width: 32, height: 32, borderRadius: 8, background: 'linear-gradient(135deg, #2563eb, #06b6d4)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 800, fontSize: '0.75rem' }}>FT</div>
+                <span style={{ fontSize: '1.05rem', fontWeight: 800, color: '#1e293b' }}>FitTracker</span>
             </Link>
 
-            <div style={{ display: 'flex', gap: 4, alignItems: 'center', overflowX: 'auto' }}>
+            <div style={{ display: 'flex', gap: 2, alignItems: 'center' }}>
                 {navItems.map(item => {
                     const isActive = pathname === item.href;
                     return (
                         <Link key={item.href} href={item.href} style={{
                             display: 'flex', alignItems: 'center', gap: 6, textDecoration: 'none',
-                            padding: '0.4rem 0.75rem', borderRadius: 8, fontSize: '0.835rem', fontWeight: 500,
-                            color: isActive ? '#FF6B35' : '#888',
-                            background: isActive ? 'rgba(255,107,53,0.1)' : 'transparent',
+                            padding: '0.45rem 0.85rem', borderRadius: 10, fontSize: '0.84rem', fontWeight: 500,
+                            color: isActive ? '#2563eb' : '#64748b',
+                            background: isActive ? 'rgba(37,99,235,0.08)' : 'transparent',
                             transition: 'all 0.2s', whiteSpace: 'nowrap',
                         }}>
-                            <span>{item.icon}</span>
-                            <span style={{ display: 'none', '@media(min-width:640px)': { display: 'block' } } as any}>{item.label}</span>
+                            <span style={{ fontSize: '0.95rem' }}>{item.icon}</span>
+                            <span>{item.label}</span>
                         </Link>
                     );
                 })}
                 <button onClick={logout} style={{
-                    marginLeft: 8, background: 'transparent', border: '1px solid #2A2A2A', color: '#666',
-                    padding: '0.4rem 0.75rem', borderRadius: 8, cursor: 'pointer', fontSize: '0.8rem',
-                    transition: 'border-color 0.2s', fontWeight: 500,
+                    marginLeft: 8, background: '#fff', border: '1px solid #e2e8f0', color: '#64748b',
+                    padding: '0.4rem 0.85rem', borderRadius: 8, cursor: 'pointer', fontSize: '0.8rem',
+                    transition: 'all 0.2s', fontWeight: 500,
                 }}>Logout</button>
             </div>
         </nav>
