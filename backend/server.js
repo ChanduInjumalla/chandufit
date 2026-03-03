@@ -16,6 +16,7 @@ app.use('/api/foods', require('./routes/food'));
 app.use('/api/workouts', require('./routes/workout'));
 app.use('/api/discipline', require('./routes/discipline'));
 app.use('/api/logs', require('./routes/logs'));
+app.use('/api/chat', require('./routes/chat'));
 
 app.get('/', (req, res) => res.json({ message: 'ChanduFit API running 🔥' }));
 

@@ -30,12 +30,21 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
   font-family: 'Inter', -apple-system, system-ui, sans-serif;
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
 }
 
 ::selection {
@@ -57,19 +66,32 @@ select:focus {
 
 button {
   font-family: 'Inter', sans-serif;
-  transition: all 0.2s ease;
+  transition: opacity 0.15s ease, box-shadow 0.15s ease;
+  will-change: opacity;
 }
 
 button:hover {
-  transform: translateY(-1px);
+  opacity: 0.92;
 }
 
 button:active {
-  transform: translateY(0);
+  opacity: 0.85;
 }
 
 a {
-  transition: color 0.2s;
+  transition: color 0.15s;
+}
+
+/* GPU-accelerated smooth scrolling for overflow containers */
+[style*="overflow"] {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* Prevent layout thrashing on animated elements */
+[style*="animation"] {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
 }
 
 ::-webkit-scrollbar {
