@@ -17,56 +17,55 @@ export default function LoginPage() {
             const { data } = await api.post('/auth/login', form);
             localStorage.setItem('chandufit_token', data.token);
             localStorage.setItem('chandufit_user', JSON.stringify(data.user));
-            toast.success(`Welcome back, ${data.user.name}! 🔥`);
-            if (!data.user.profileComplete) {
-                router.push('/profile/setup');
-            } else {
-                router.push('/dashboard');
-            }
+            toast.success('Welcome back! 💪');
+            router.push(data.user.height ? '/dashboard' : '/profile/setup');
         } catch (err: any) {
             toast.error(err.response?.data?.message || 'Login failed');
-        } finally {
-            setLoading(false);
-        }
+        } finally { setLoading(false); }
     };
 
+    const inputStyle = {
+        background: '#fff', border: '1px solid #e2e8f0', borderRadius: 10,
+        color: '#1e293b', padding: '0.75rem 1rem', fontSize: '0.95rem', width: '100%',
+        transition: 'all 0.2s',
+    };
+    const labelStyle: React.CSSProperties = { display: 'block', marginBottom: 6, fontSize: '0.85rem', color: '#64748b', fontWeight: 500 };
+
     return (
-        <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem', background: 'radial-gradient(ellipse 60% 50% at 50% 0%, rgba(255,107,53,0.12), transparent)' }}>
-            <div style={{ width: '100%', maxWidth: 420 }}>
+        <div style={{ minHeight: '100vh', background: 'linear-gradient(160deg, #eff6ff 0%, #f8faff 40%, #ecfeff 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem', position: 'relative' }}>
+            <div style={{ position: 'absolute', inset: 0, backgroundImage: 'url(/fitness-pattern.png)', backgroundSize: 'cover', opacity: 0.15 }} />
+            <div style={{ width: '100%', maxWidth: 440, position: 'relative', animation: 'slideUp 0.5s ease' }}>
                 {/* Logo */}
                 <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-                    <Link href="/" style={{ textDecoration: 'none' }}>
-                        <span style={{ fontSize: '1.8rem', fontWeight: 900, background: 'linear-gradient(135deg, #FF6B35, #E63946)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                            ChanduFit
-                        </span>
-                    </Link>
-                    <p style={{ color: '#666', marginTop: 6, fontSize: '0.9rem' }}>Welcome back. Let&apos;s get disciplined.</p>
+                    <div style={{ width: 48, height: 48, borderRadius: 14, background: 'linear-gradient(135deg, #2563eb, #06b6d4)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 900, fontSize: '1.1rem', marginBottom: 12, boxShadow: '0 4px 14px rgba(37,99,235,0.3)' }}>FT</div>
+                    <h1 style={{ fontSize: '1.6rem', fontWeight: 800, color: '#0f172a' }}>Welcome Back</h1>
+                    <p style={{ color: '#64748b', marginTop: 4, fontSize: '0.9rem' }}>Log in to continue your fitness journey</p>
                 </div>
 
                 {/* Card */}
-                <div style={{ background: '#1A1A1A', border: '1px solid #2A2A2A', borderRadius: 16, padding: '2rem' }}>
-                    <h1 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '1.5rem' }}>Login</h1>
-                    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <div style={{ background: '#fff', borderRadius: 18, padding: '2rem', border: '1px solid #e2e8f0', boxShadow: '0 8px 40px rgba(37,99,235,0.06)' }}>
+                    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                         <div>
-                            <label style={{ display: 'block', marginBottom: 6, fontSize: '0.85rem', color: '#888' }}>Email</label>
-                            <input id="login-email" type="email" className="input" placeholder="chandu@email.com" required
-                                value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} />
+                            <label style={labelStyle}>Email</label>
+                            <input id="login-email" type="email" required style={inputStyle} placeholder="you@example.com"
+                                value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} />
                         </div>
                         <div>
-                            <label style={{ display: 'block', marginBottom: 6, fontSize: '0.85rem', color: '#888' }}>Password</label>
-                            <input id="login-password" type="password" className="input" placeholder="••••••••" required
-                                value={form.password} onChange={e => setForm({ ...form, password: e.target.value })} />
+                            <label style={labelStyle}>Password</label>
+                            <input id="login-password" type="password" required style={inputStyle} placeholder="••••••••" minLength={6}
+                                value={form.password} onChange={e => setForm(f => ({ ...f, password: e.target.value }))} />
                         </div>
-                        <button id="login-submit" type="submit" className="btn-primary" disabled={loading}
-                            style={{ marginTop: '0.5rem', opacity: loading ? 0.7 : 1, background: 'linear-gradient(135deg, #FF6B35, #E63946)', color: '#fff', padding: '0.85rem', borderRadius: 8, border: 'none', fontWeight: 700, fontSize: '1rem', cursor: 'pointer' }}>
-                            {loading ? 'Logging in...' : 'Login 🔥'}
+                        <button id="login-submit" type="submit" disabled={loading}
+                            style={{ background: 'linear-gradient(135deg, #2563eb, #06b6d4)', color: '#fff', padding: '0.85rem', borderRadius: 12, border: 'none', fontWeight: 700, fontSize: '0.95rem', cursor: 'pointer', opacity: loading ? 0.7 : 1, boxShadow: '0 4px 14px rgba(37,99,235,0.3)', transition: 'all 0.2s' }}>
+                            {loading ? 'Signing in...' : 'Sign In →'}
                         </button>
                     </form>
-                    <p style={{ marginTop: '1.5rem', textAlign: 'center', fontSize: '0.875rem', color: '#666' }}>
-                        No account?{' '}
-                        <Link href="/auth/signup" style={{ color: '#FF6B35', textDecoration: 'none', fontWeight: 600 }}>Sign up free</Link>
-                    </p>
                 </div>
+
+                <p style={{ textAlign: 'center', marginTop: '1.5rem', color: '#64748b', fontSize: '0.875rem' }}>
+                    Don&apos;t have an account?{' '}
+                    <Link href="/auth/signup" style={{ color: '#2563eb', fontWeight: 600, textDecoration: 'none' }}>Sign up free</Link>
+                </p>
             </div>
         </div>
     );
