@@ -2,6 +2,9 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { Toaster } from 'react-hot-toast'
+import dynamic from 'next/dynamic'
+
+const FitnessChat = dynamic(() => import('@/components/FitnessChat'), { ssr: false })
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -27,6 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     }}
                 />
                 {children}
+                <FitnessChat />
             </body>
         </html>
     )

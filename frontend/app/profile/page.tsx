@@ -24,7 +24,17 @@ export default function ProfilePage() {
 
     const handleSave = async (e: React.FormEvent) => {
         e.preventDefault(); setSaving(true);
-        try { await api.put('/user/profile', { height: Number(form.height), weight: Number(form.weight), activityLevel: form.activityLevel, goal: form.goal, bodyType: form.bodyType, budget: form.budget }); toast.success('Profile updated! 💪'); load(); } catch { toast.error('Update failed'); }
+        try {
+            await api.put('/user/profile', { height: Number(form.height), weight: Number(form.weight), activityLevel: form.activityLevel, goal: form.goal, bodyType: form.bodyType, budget: form.budget });
+            // Update localStorage so diet page reads the new budget immediately
+            const stored = JSON.parse(localStorage.getItem('chandufit_user') || '{}');
+            stored.budget = form.budget;
+            stored.goal = form.goal;
+            stored.activityLevel = form.activityLevel;
+            localStorage.setItem('chandufit_user', JSON.stringify(stored));
+            toast.success('Profile updated! 💪');
+            load();
+        } catch { toast.error('Update failed'); }
         setSaving(false);
     };
 
