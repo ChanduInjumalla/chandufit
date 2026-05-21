@@ -243,11 +243,11 @@ async function seed() {
         console.log(`✅ Seeded ${workouts.length} workouts`);
 
         console.log('\n🔥 Database seeding complete!');
-        process.exit(0);
+        return 'success';
     } catch (err) {
         console.error('❌ Seeding error:', err.message);
-        process.exit(1);
+        throw err;
     }
 }
 
-seed();
+module.exports = seed;

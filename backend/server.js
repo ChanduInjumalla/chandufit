@@ -19,6 +19,16 @@ app.use('/api/logs', require('./routes/logs'));
 
 app.get('/', (req, res) => res.json({ message: 'ChanduFit API running 🔥' }));
 
+app.get('/api/seed', async (req, res) => {
+    try {
+        const seed = require('./seeds/foods');
+        await seed();
+        res.json({ message: '✅ Database seeded successfully via API!' });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
